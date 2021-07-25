@@ -410,6 +410,7 @@ namespace file_copy
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 853);
             this.Controls.Add(this.tlpBase);
+            this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "Form1";
             this.Text = "FileCopy";
             this.tlpBase.ResumeLayout(false);
