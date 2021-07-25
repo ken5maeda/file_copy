@@ -166,7 +166,7 @@ namespace file_copy
             // 
             // btnSelectToDirectry
             // 
-            this.btnSelectToDirectry.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnSelectToDirectry.Font = new System.Drawing.Font("HG創英角ｺﾞｼｯｸUB", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.btnSelectToDirectry.Location = new System.Drawing.Point(521, 3);
             this.btnSelectToDirectry.Name = "btnSelectToDirectry";
             this.btnSelectToDirectry.Size = new System.Drawing.Size(50, 25);
