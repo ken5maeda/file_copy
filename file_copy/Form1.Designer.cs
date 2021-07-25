@@ -29,14 +29,14 @@ namespace file_copy
         /// </summary>
         private void InitializeComponent()
         {
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.trvDirectry = new System.Windows.Forms.TreeView();
             this.lvFile = new System.Windows.Forms.ListView();
             this.lvToFrom = new System.Windows.Forms.ListView();
             this.tlpBase = new System.Windows.Forms.TableLayoutPanel();
             this.tlp3 = new System.Windows.Forms.TableLayoutPanel();
             this.tlp1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnSelect = new System.Windows.Forms.Button();
+            this.btnSelectToDirectry = new System.Windows.Forms.Button();
             this.tbxTo = new System.Windows.Forms.TextBox();
             this.lblTo = new System.Windows.Forms.Label();
             this.tlp4 = new System.Windows.Forms.TableLayoutPanel();
@@ -73,7 +73,7 @@ namespace file_copy
             this.trvDirectry.Size = new System.Drawing.Size(223, 322);
             this.trvDirectry.TabIndex = 0;
             this.trvDirectry.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeExpand);
-            this.trvDirectry.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.trvDirectry.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvDirectry_NodeMouseClick);
             // 
             // lvFile
             // 
@@ -101,6 +101,7 @@ namespace file_copy
             this.lvToFrom.Size = new System.Drawing.Size(574, 328);
             this.lvToFrom.TabIndex = 2;
             this.lvToFrom.UseCompatibleStateImageBehavior = false;
+            this.lvToFrom.View = System.Windows.Forms.View.Details;
             // 
             // tlpBase
             // 
@@ -153,7 +154,7 @@ namespace file_copy
             this.tlp1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlp1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlp1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlp1.Controls.Add(this.btnSelect, 2, 0);
+            this.tlp1.Controls.Add(this.btnSelectToDirectry, 2, 0);
             this.tlp1.Controls.Add(this.tbxTo, 1, 0);
             this.tlp1.Controls.Add(this.lblTo, 0, 0);
             this.tlp1.Location = new System.Drawing.Point(3, 3);
@@ -163,16 +164,16 @@ namespace file_copy
             this.tlp1.Size = new System.Drawing.Size(574, 31);
             this.tlp1.TabIndex = 3;
             // 
-            // btnSelect
+            // btnSelectToDirectry
             // 
-            this.btnSelect.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnSelect.Location = new System.Drawing.Point(521, 3);
-            this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(50, 25);
-            this.btnSelect.TabIndex = 2;
-            this.btnSelect.Text = "...";
-            this.btnSelect.UseVisualStyleBackColor = true;
-            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+            this.btnSelectToDirectry.Font = new System.Drawing.Font("ＭＳ Ｐゴシック", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnSelectToDirectry.Location = new System.Drawing.Point(521, 3);
+            this.btnSelectToDirectry.Name = "btnSelectToDirectry";
+            this.btnSelectToDirectry.Size = new System.Drawing.Size(50, 25);
+            this.btnSelectToDirectry.TabIndex = 2;
+            this.btnSelectToDirectry.Text = "...";
+            this.btnSelectToDirectry.UseVisualStyleBackColor = true;
+            this.btnSelectToDirectry.Click += new System.EventHandler(this.btnSelectToDirectry_Click);
             // 
             // tbxTo
             // 
@@ -427,7 +428,7 @@ namespace file_copy
         }
 
         #endregion
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.TreeView trvDirectry;
         private System.Windows.Forms.ListView lvFile;
         private System.Windows.Forms.ListView lvToFrom;
@@ -436,7 +437,7 @@ namespace file_copy
         private System.Windows.Forms.TableLayoutPanel tlp1;
         private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.TextBox tbxTo;
-        private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.Button btnSelectToDirectry;
         private System.Windows.Forms.Label lblFrom;
         private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.TextBox tbxFilter;

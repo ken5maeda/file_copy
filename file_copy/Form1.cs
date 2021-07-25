@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,10 +16,15 @@ namespace file_copy
 {
     public partial class Form1 : Form
     {
-        private String mFromDirectry;
+        /// <summary>
+        /// 最後に選択したコピー元ディレクトリパス
+        /// </summary>
+        private String mFromDirectry;　　
         public Form1()
         {
             InitializeComponent();
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
             // ドライブ一覧を走査してツリーに追加
             foreach (String drive in Environment.GetLogicalDrives())
@@ -31,8 +38,7 @@ namespace file_copy
             // 初期選択ドライブの内容を表示
             setListItem(Environment.GetLogicalDrives().First());
 
-            // リストビューのヘッダーを設定
-            lvToFrom.View = View.Details;
+            // リストビューの初期設定
             lvToFrom.Clear();
             lvToFrom.Columns.Add("To");
             lvToFrom.Columns.Add("From");
@@ -63,7 +69,7 @@ namespace file_copy
             }
             catch (IOException ie)
             {
-                MessageBox.Show(ie.Message, "選択エラー");
+                MessageBox.Show(ie.Message, "error");
             }
 
         }
@@ -103,6 +109,7 @@ namespace file_copy
             lvFile.Columns.Add("date");
             lvFile.Columns.Add("size");
 
+            // フィルター文字列を正規表現用文字列に変換
             String match = tbxFilter.Text;
             if (match == "")
             {
@@ -112,7 +119,6 @@ namespace file_copy
             {
                 match = "^" + match.Replace("*", ".+") + "$";
             }
-            match = "^" + match.Replace("*", ".+") + "$";
 
             try
             {
@@ -122,6 +128,7 @@ namespace file_copy
                 {
                     FileInfo info = new FileInfo(file);
                     String name = info.Name;
+                    // フィルター条件に合うファイルのみ表示
                     if (Regex.IsMatch(name, match))
                     {
                         ListViewItem item = new ListViewItem(name);
@@ -133,7 +140,7 @@ namespace file_copy
             }
             catch (IOException ie)
             {
-                MessageBox.Show(ie.Message, "選択エラー");
+                MessageBox.Show(ie.Message, "error");
             }
 
             // 列幅を自動調整
@@ -141,37 +148,74 @@ namespace file_copy
         }
 
         /// <summary>
-        /// ツリービュー項目選択時（前）のイベントハンドラ.
+        /// ツリービュー項目選択時（前）のイベントハンドラ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void trvDirectry_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             mFromDirectry = e.Node.FullPath;
             setListItem(mFromDirectry);
         }
 
-        private void btnSelect_Click(object sender, EventArgs e)
+        /// <summary>
+        /// コピー先ディレクトリ選択ボタン押下時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectToDirectry_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                tbxTo.Text = folderBrowserDialog1.SelectedPath;
+                tbxTo.Text = folderBrowserDialog.SelectedPath;
             }
         }
 
+        /// <summary>
+        /// フィルター適応ボタン押下時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            if(mFromDirectry != null)
+            {
+                setListItem(mFromDirectry);
+            }
+        }
+
+
+        /// <summary>
+        /// 一括更新リストに追加するボタン押下時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            String ToDirectry = tbxTo.Text;
-            foreach (ListViewItem item in lvFile.SelectedItems)
+            String toDirectry = tbxTo.Text;
+            if(toDirectry == "")
             {
-                String fileName = item.Text;
-                ListViewItem toFrom = new ListViewItem(ToDirectry);
-                toFrom.SubItems.Add(Path.Combine(mFromDirectry, fileName));
-                lvToFrom.Items.Add(toFrom);
+                MessageBox.Show("Select a destination directory", "error");
             }
-            lvToFrom.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            else
+            {
+                foreach (ListViewItem item in lvFile.SelectedItems)
+                {
+                    String fileName = item.Text;
+                    ListViewItem toFrom = new ListViewItem(toDirectry);
+                    toFrom.SubItems.Add(Path.Combine(mFromDirectry, fileName));
+                    lvToFrom.Items.Add(toFrom);
+                }
+                lvToFrom.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            }
         }
 
+
+        /// <summary>
+        /// 削除ボタン押下時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem item in lvToFrom.SelectedItems)
@@ -180,6 +224,11 @@ namespace file_copy
             }
         }
 
+        /// <summary>
+        /// クリアボタン押下時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCleare_Click(object sender, EventArgs e)
         {
             lvToFrom.Clear();
@@ -187,11 +236,11 @@ namespace file_copy
             lvToFrom.Columns.Add("From");
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
-        {
-            setListItem(mFromDirectry);
-        }
-
+        /// <summary>
+        /// コピーボタン押下時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCopy_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem item in lvToFrom.Items)
@@ -221,7 +270,7 @@ namespace file_copy
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show(ex.Message, "File already exist");
+                    MessageBox.Show(ex.Message, "File already exists");
                 }
                 catch (UnauthorizedAccessException ex)
                 {
@@ -230,6 +279,11 @@ namespace file_copy
             }
         }
 
+        /// <summary>
+        /// 移動ボタン押下時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMove_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem item in lvToFrom.Items)
