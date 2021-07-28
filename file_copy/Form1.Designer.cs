@@ -37,7 +37,7 @@ namespace file_copy
             this.tlp3 = new System.Windows.Forms.TableLayoutPanel();
             this.tlp1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSelectToDirectry = new System.Windows.Forms.Button();
-            this.tbxTo = new System.Windows.Forms.TextBox();
+            this.tbxToDirectry = new System.Windows.Forms.TextBox();
             this.lblTo = new System.Windows.Forms.Label();
             this.tlp4 = new System.Windows.Forms.TableLayoutPanel();
             this.lblList = new System.Windows.Forms.Label();
@@ -68,9 +68,10 @@ namespace file_copy
             this.trvDirectry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trvDirectry.Location = new System.Drawing.Point(3, 3);
+            this.trvDirectry.Location = new System.Drawing.Point(3, 2);
+            this.trvDirectry.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trvDirectry.Name = "trvDirectry";
-            this.trvDirectry.Size = new System.Drawing.Size(223, 322);
+            this.trvDirectry.Size = new System.Drawing.Size(223, 332);
             this.trvDirectry.TabIndex = 0;
             this.trvDirectry.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeExpand);
             this.trvDirectry.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvDirectry_NodeMouseClick);
@@ -82,26 +83,31 @@ namespace file_copy
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvFile.FullRowSelect = true;
             this.lvFile.HideSelection = false;
-            this.lvFile.Location = new System.Drawing.Point(232, 3);
+            this.lvFile.Location = new System.Drawing.Point(232, 2);
+            this.lvFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvFile.Name = "lvFile";
-            this.lvFile.Size = new System.Drawing.Size(339, 322);
+            this.lvFile.Size = new System.Drawing.Size(339, 332);
             this.lvFile.TabIndex = 1;
             this.lvFile.UseCompatibleStateImageBehavior = false;
             this.lvFile.View = System.Windows.Forms.View.Details;
             // 
             // lvToFrom
             // 
+            this.lvToFrom.AllowDrop = true;
             this.lvToFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvToFrom.FullRowSelect = true;
             this.lvToFrom.HideSelection = false;
-            this.lvToFrom.Location = new System.Drawing.Point(3, 468);
+            this.lvToFrom.Location = new System.Drawing.Point(3, 463);
+            this.lvToFrom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvToFrom.Name = "lvToFrom";
-            this.lvToFrom.Size = new System.Drawing.Size(574, 328);
+            this.lvToFrom.Size = new System.Drawing.Size(574, 336);
             this.lvToFrom.TabIndex = 2;
             this.lvToFrom.UseCompatibleStateImageBehavior = false;
             this.lvToFrom.View = System.Windows.Forms.View.Details;
+            this.lvToFrom.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvToFrom_DragDrop);
+            this.lvToFrom.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormMain_DragEnter);
             // 
             // tlpBase
             // 
@@ -116,7 +122,8 @@ namespace file_copy
             this.tlpBase.Controls.Add(this.tlp4, 0, 3);
             this.tlpBase.Controls.Add(this.tlp6, 0, 5);
             this.tlpBase.Controls.Add(this.tlp2, 0, 1);
-            this.tlpBase.Location = new System.Drawing.Point(1, 3);
+            this.tlpBase.Location = new System.Drawing.Point(1, 2);
+            this.tlpBase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlpBase.Name = "tlpBase";
             this.tlpBase.RowCount = 6;
             this.tlpBase.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -138,11 +145,12 @@ namespace file_copy
             this.tlp3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tlp3.Controls.Add(this.trvDirectry, 0, 0);
             this.tlp3.Controls.Add(this.lvFile, 1, 0);
-            this.tlp3.Location = new System.Drawing.Point(3, 90);
+            this.tlp3.Location = new System.Drawing.Point(3, 82);
+            this.tlp3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlp3.Name = "tlp3";
             this.tlp3.RowCount = 1;
             this.tlp3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp3.Size = new System.Drawing.Size(574, 328);
+            this.tlp3.Size = new System.Drawing.Size(574, 336);
             this.tlp3.TabIndex = 0;
             // 
             // tlp1
@@ -155,9 +163,10 @@ namespace file_copy
             this.tlp1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlp1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlp1.Controls.Add(this.btnSelectToDirectry, 2, 0);
-            this.tlp1.Controls.Add(this.tbxTo, 1, 0);
+            this.tlp1.Controls.Add(this.tbxToDirectry, 1, 0);
             this.tlp1.Controls.Add(this.lblTo, 0, 0);
-            this.tlp1.Location = new System.Drawing.Point(3, 3);
+            this.tlp1.Location = new System.Drawing.Point(3, 2);
+            this.tlp1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlp1.Name = "tlp1";
             this.tlp1.RowCount = 1;
             this.tlp1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -166,25 +175,29 @@ namespace file_copy
             // 
             // btnSelectToDirectry
             // 
-            this.btnSelectToDirectry.Font = new System.Drawing.Font("HG創英角ｺﾞｼｯｸUB", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnSelectToDirectry.Location = new System.Drawing.Point(521, 3);
+            this.btnSelectToDirectry.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSelectToDirectry.Location = new System.Drawing.Point(520, 2);
+            this.btnSelectToDirectry.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelectToDirectry.Name = "btnSelectToDirectry";
-            this.btnSelectToDirectry.Size = new System.Drawing.Size(50, 25);
+            this.btnSelectToDirectry.Size = new System.Drawing.Size(51, 25);
             this.btnSelectToDirectry.TabIndex = 2;
             this.btnSelectToDirectry.Text = "...";
             this.btnSelectToDirectry.UseVisualStyleBackColor = true;
             this.btnSelectToDirectry.Click += new System.EventHandler(this.btnSelectToDirectry_Click);
             // 
-            // tbxTo
+            // tbxToDirectry
             // 
-            this.tbxTo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tbxToDirectry.AllowDrop = true;
+            this.tbxToDirectry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxTo.Location = new System.Drawing.Point(39, 5);
-            this.tbxTo.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.tbxTo.Name = "tbxTo";
-            this.tbxTo.Size = new System.Drawing.Size(476, 22);
-            this.tbxTo.TabIndex = 1;
+            this.tbxToDirectry.Location = new System.Drawing.Point(38, 5);
+            this.tbxToDirectry.Margin = new System.Windows.Forms.Padding(3, 5, 3, 2);
+            this.tbxToDirectry.Name = "tbxToDirectry";
+            this.tbxToDirectry.Size = new System.Drawing.Size(476, 22);
+            this.tbxToDirectry.TabIndex = 1;
+            this.tbxToDirectry.DragDrop += new System.Windows.Forms.DragEventHandler(this.tbxToDirectry_DragDrop);
+            this.tbxToDirectry.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormMain_DragEnter);
             // 
             // lblTo
             // 
@@ -192,7 +205,7 @@ namespace file_copy
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTo.Location = new System.Drawing.Point(3, 0);
             this.lblTo.Name = "lblTo";
-            this.lblTo.Size = new System.Drawing.Size(30, 31);
+            this.lblTo.Size = new System.Drawing.Size(29, 31);
             this.lblTo.TabIndex = 0;
             this.lblTo.Text = "To";
             this.lblTo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -208,20 +221,22 @@ namespace file_copy
             this.tlp4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlp4.Controls.Add(this.lblList, 0, 0);
             this.tlp4.Controls.Add(this.btnAdd, 1, 0);
-            this.tlp4.Location = new System.Drawing.Point(3, 424);
+            this.tlp4.Location = new System.Drawing.Point(3, 422);
+            this.tlp4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlp4.Name = "tlp4";
             this.tlp4.RowCount = 1;
             this.tlp4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlp4.Size = new System.Drawing.Size(574, 38);
+            this.tlp4.Size = new System.Drawing.Size(574, 37);
             this.tlp4.TabIndex = 8;
             // 
             // lblList
             // 
             this.lblList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblList.AutoSize = true;
             this.lblList.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblList.Location = new System.Drawing.Point(3, 13);
+            this.lblList.Location = new System.Drawing.Point(3, 22);
             this.lblList.Name = "lblList";
-            this.lblList.Size = new System.Drawing.Size(30, 25);
+            this.lblList.Size = new System.Drawing.Size(30, 15);
             this.lblList.TabIndex = 5;
             this.lblList.Text = "List";
             this.lblList.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -230,7 +245,7 @@ namespace file_copy
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdd.Location = new System.Drawing.Point(496, 10);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 10, 3, 2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 25);
             this.btnAdd.TabIndex = 6;
@@ -255,20 +270,20 @@ namespace file_copy
             this.tlp6.Controls.Add(this.btnCleare, 2, 0);
             this.tlp6.Controls.Add(this.btnCopy, 3, 0);
             this.tlp6.Controls.Add(this.btnMove, 4, 0);
-            this.tlp6.Location = new System.Drawing.Point(3, 809);
+            this.tlp6.Location = new System.Drawing.Point(3, 811);
             this.tlp6.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
             this.tlp6.Name = "tlp6";
             this.tlp6.RowCount = 1;
             this.tlp6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp6.Size = new System.Drawing.Size(574, 31);
+            this.tlp6.Size = new System.Drawing.Size(574, 29);
             this.tlp6.TabIndex = 6;
             // 
             // cbOverwrite
             // 
             this.cbOverwrite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOverwrite.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.cbOverwrite.Location = new System.Drawing.Point(79, 3);
-            this.cbOverwrite.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
+            this.cbOverwrite.Location = new System.Drawing.Point(79, 2);
+            this.cbOverwrite.Margin = new System.Windows.Forms.Padding(3, 2, 20, 2);
             this.cbOverwrite.Name = "cbOverwrite";
             this.cbOverwrite.Size = new System.Drawing.Size(100, 25);
             this.cbOverwrite.TabIndex = 0;
@@ -278,8 +293,8 @@ namespace file_copy
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(202, 3);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
+            this.btnDelete.Location = new System.Drawing.Point(202, 2);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 2, 20, 2);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 25);
             this.btnDelete.TabIndex = 1;
@@ -291,8 +306,8 @@ namespace file_copy
             // 
             this.btnCleare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCleare.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCleare.Location = new System.Drawing.Point(300, 3);
-            this.btnCleare.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
+            this.btnCleare.Location = new System.Drawing.Point(300, 2);
+            this.btnCleare.Margin = new System.Windows.Forms.Padding(3, 2, 20, 2);
             this.btnCleare.Name = "btnCleare";
             this.btnCleare.Size = new System.Drawing.Size(75, 25);
             this.btnCleare.TabIndex = 2;
@@ -304,8 +319,8 @@ namespace file_copy
             // 
             this.btnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCopy.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnCopy.Location = new System.Drawing.Point(398, 3);
-            this.btnCopy.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
+            this.btnCopy.Location = new System.Drawing.Point(398, 2);
+            this.btnCopy.Margin = new System.Windows.Forms.Padding(3, 2, 20, 2);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(75, 25);
             this.btnCopy.TabIndex = 3;
@@ -316,7 +331,8 @@ namespace file_copy
             // btnMove
             // 
             this.btnMove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMove.Location = new System.Drawing.Point(496, 3);
+            this.btnMove.Location = new System.Drawing.Point(496, 2);
+            this.btnMove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnMove.Name = "btnMove";
             this.btnMove.Size = new System.Drawing.Size(75, 25);
             this.btnMove.TabIndex = 4;
@@ -335,17 +351,18 @@ namespace file_copy
             this.tlp2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tlp2.Controls.Add(this.lblFrom, 0, 0);
             this.tlp2.Controls.Add(this.tlp2_1, 1, 0);
-            this.tlp2.Location = new System.Drawing.Point(3, 40);
+            this.tlp2.Location = new System.Drawing.Point(3, 37);
+            this.tlp2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlp2.Name = "tlp2";
             this.tlp2.RowCount = 1;
             this.tlp2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp2.Size = new System.Drawing.Size(574, 44);
+            this.tlp2.Size = new System.Drawing.Size(574, 41);
             this.tlp2.TabIndex = 9;
             // 
             // lblFrom
             // 
             this.lblFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblFrom.Location = new System.Drawing.Point(3, 19);
+            this.lblFrom.Location = new System.Drawing.Point(3, 16);
             this.lblFrom.Name = "lblFrom";
             this.lblFrom.Size = new System.Drawing.Size(88, 25);
             this.lblFrom.TabIndex = 0;
@@ -365,11 +382,12 @@ namespace file_copy
             this.tlp2_1.Controls.Add(this.tbxFilter, 1, 0);
             this.tlp2_1.Controls.Add(this.lblFilter, 0, 0);
             this.tlp2_1.Controls.Add(this.btnApply, 2, 0);
-            this.tlp2_1.Location = new System.Drawing.Point(232, 3);
+            this.tlp2_1.Location = new System.Drawing.Point(232, 2);
+            this.tlp2_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlp2_1.Name = "tlp2_1";
             this.tlp2_1.RowCount = 1;
             this.tlp2_1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp2_1.Size = new System.Drawing.Size(339, 38);
+            this.tlp2_1.Size = new System.Drawing.Size(339, 37);
             this.tlp2_1.TabIndex = 1;
             // 
             // tbxFilter
@@ -378,25 +396,26 @@ namespace file_copy
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbxFilter.Location = new System.Drawing.Point(48, 10);
-            this.tbxFilter.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.tbxFilter.Margin = new System.Windows.Forms.Padding(3, 10, 3, 2);
             this.tbxFilter.Name = "tbxFilter";
             this.tbxFilter.Size = new System.Drawing.Size(207, 22);
             this.tbxFilter.TabIndex = 2;
             // 
             // lblFilter
             // 
-            this.lblFilter.Location = new System.Drawing.Point(3, 10);
-            this.lblFilter.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.lblFilter.AutoSize = true;
+            this.lblFilter.Location = new System.Drawing.Point(3, 12);
+            this.lblFilter.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.lblFilter.Name = "lblFilter";
-            this.lblFilter.Size = new System.Drawing.Size(39, 25);
+            this.lblFilter.Size = new System.Drawing.Size(39, 15);
             this.lblFilter.TabIndex = 1;
             this.lblFilter.Text = "Filter";
-            this.lblFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblFilter.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // btnApply
             // 
             this.btnApply.Location = new System.Drawing.Point(261, 10);
-            this.btnApply.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.btnApply.Margin = new System.Windows.Forms.Padding(3, 10, 3, 2);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 25);
             this.btnApply.TabIndex = 3;
@@ -408,9 +427,10 @@ namespace file_copy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 853);
+            this.ClientSize = new System.Drawing.Size(584, 852);
             this.Controls.Add(this.tlpBase);
-            this.MinimumSize = new System.Drawing.Size(600, 600);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MinimumSize = new System.Drawing.Size(599, 598);
             this.Name = "Form1";
             this.Text = "FileCopy";
             this.tlpBase.ResumeLayout(false);
@@ -419,6 +439,7 @@ namespace file_copy
             this.tlp1.ResumeLayout(false);
             this.tlp1.PerformLayout();
             this.tlp4.ResumeLayout(false);
+            this.tlp4.PerformLayout();
             this.tlp6.ResumeLayout(false);
             this.tlp2.ResumeLayout(false);
             this.tlp2.PerformLayout();
@@ -437,7 +458,7 @@ namespace file_copy
         private System.Windows.Forms.TableLayoutPanel tlp3;
         private System.Windows.Forms.TableLayoutPanel tlp1;
         private System.Windows.Forms.Label lblTo;
-        private System.Windows.Forms.TextBox tbxTo;
+        private System.Windows.Forms.TextBox tbxToDirectry;
         private System.Windows.Forms.Button btnSelectToDirectry;
         private System.Windows.Forms.Label lblFrom;
         private System.Windows.Forms.Label lblFilter;

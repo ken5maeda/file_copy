@@ -19,7 +19,7 @@ namespace file_copy
         /// <summary>
         /// 最後に選択したコピー元ディレクトリパス
         /// </summary>
-        private String mFromDirectry;　　
+        private String mFromDirectry;
         public Form1()
         {
             InitializeComponent();
@@ -86,12 +86,12 @@ namespace file_copy
             {
                 ret = Math.Round((fileSize / 1024f / 1024f / 1024f), 2).ToString() + " GB";
             }
-            else if(fileSize > (1024f * 1024f))
-                {
+            else if (fileSize > (1024f * 1024f))
+            {
                 ret = Math.Round((fileSize / 1024f / 1024f), 2).ToString() + " MB";
             }
-            else if(fileSize > 1024f)
-                {
+            else if (fileSize > 1024f)
+            {
                 ret = Math.Round((fileSize / 1024f)).ToString() + " KB";
             }
 
@@ -167,7 +167,7 @@ namespace file_copy
         {
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                tbxTo.Text = folderBrowserDialog.SelectedPath;
+                tbxToDirectry.Text = folderBrowserDialog.SelectedPath;
             }
         }
 
@@ -178,7 +178,7 @@ namespace file_copy
         /// <param name="e"></param>
         private void btnApply_Click(object sender, EventArgs e)
         {
-            if(mFromDirectry != null)
+            if (mFromDirectry != null)
             {
                 setListItem(mFromDirectry);
             }
@@ -192,8 +192,8 @@ namespace file_copy
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            String toDirectry = tbxTo.Text;
-            if(toDirectry == "")
+            String toDirectry = tbxToDirectry.Text;
+            if (toDirectry == "")
             {
                 MessageBox.Show("Select a destination directory", "error");
             }
@@ -316,6 +316,54 @@ namespace file_copy
                 {
                     MessageBox.Show(ex.Message, "Access error");
                 }
+            }
+        }
+
+        private void FormMain_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void tbxToDirectry_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            if (File.Exists(files[0]))
+            {
+                tbxToDirectry.Text += Path.GetDirectoryName(files[0]);
+            }
+            else
+            {
+                tbxToDirectry.Text += files[0];
+            }
+        }
+
+        private void lvToFrom_DragDrop(object sender, DragEventArgs e)
+        {
+            String toDirectry = tbxToDirectry.Text;
+            if (toDirectry == "")
+            {
+                MessageBox.Show("Select a destination directory", "error");
+            }
+            else
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                foreach (string file in files)
+                {
+                    if (File.Exists(file))
+                    {
+                        ListViewItem toFrom = new ListViewItem(toDirectry);
+                        toFrom.SubItems.Add(file);
+                        lvToFrom.Items.Add(toFrom);
+                    }
+                }
+                lvToFrom.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             }
         }
     }
