@@ -336,11 +336,11 @@ namespace file_copy
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             if (File.Exists(files[0]))
             {
-                tbxToDirectry.Text += Path.GetDirectoryName(files[0]);
+                tbxToDirectry.Text = Path.GetDirectoryName(files[0]);
             }
             else
             {
-                tbxToDirectry.Text += files[0];
+                tbxToDirectry.Text = files[0];
             }
         }
 
