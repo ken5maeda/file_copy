@@ -25,6 +25,8 @@ namespace file_copy
             InitializeComponent();
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture =
+            CultureInfo.GetCultureInfoByIetfLanguageTag("en");
 
             // ドライブ一覧を走査してツリーに追加
             foreach (String drive in Environment.GetLogicalDrives())
@@ -277,6 +279,7 @@ namespace file_copy
                     MessageBox.Show(ex.Message, "Access error");
                 }
             }
+            MessageBox.Show("Copy finished!");
         }
 
         /// <summary>
@@ -317,6 +320,7 @@ namespace file_copy
                     MessageBox.Show(ex.Message, "Access error");
                 }
             }
+            MessageBox.Show("Move finished!");
         }
 
         private void FormMain_DragEnter(object sender, DragEventArgs e)
