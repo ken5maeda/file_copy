@@ -20,6 +20,8 @@ namespace file_copy
         /// 最後に選択したコピー元ディレクトリパス
         /// </summary>
         private String mFromDirectry;
+
+        private HashSet<(String, String)> mFromToList;
         public Form1()
         {
             InitializeComponent();
@@ -45,6 +47,8 @@ namespace file_copy
             lvToFrom.Columns.Add("To");
             lvToFrom.Columns.Add("From");
             lvToFrom.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            mFromToList = new HashSet<(String, String)>();
         }
 
 
@@ -206,7 +210,11 @@ namespace file_copy
                     String fileName = item.Text;
                     ListViewItem toFrom = new ListViewItem(toDirectry);
                     toFrom.SubItems.Add(Path.Combine(mFromDirectry, fileName));
-                    lvToFrom.Items.Add(toFrom);
+                    if (!mFromToList.Contains((toDirectry, fileName)))
+                    {
+                        mFromToList.Add((toDirectry, fileName));
+                        lvToFrom.Items.Add(toFrom);
+                    }
                 }
                 lvToFrom.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             }
@@ -223,6 +231,7 @@ namespace file_copy
             foreach (ListViewItem item in lvToFrom.SelectedItems)
             {
                 lvToFrom.Items.Remove(item);
+                mFromToList.Remove((item.Text, item.SubItems[1].Text));
             }
         }
 
@@ -233,6 +242,7 @@ namespace file_copy
         /// <param name="e"></param>
         private void btnCleare_Click(object sender, EventArgs e)
         {
+            mFromToList.Clear();
             lvToFrom.Clear();
             lvToFrom.Columns.Add("To");
             lvToFrom.Columns.Add("From");
@@ -253,14 +263,7 @@ namespace file_copy
 
                 try
                 {
-                    if (cbOverwrite.Checked)
-                    {
-                        File.Copy(FromDirectry, toDirectry, true);
-                    }
-                    else
-                    {
-                        File.Copy(FromDirectry, toDirectry);
-                    }
+                    File.Copy(FromDirectry, toDirectry, cbOverwrite.Checked);
                 }
                 catch (FileNotFoundException ex)
                 {
@@ -279,7 +282,7 @@ namespace file_copy
                     MessageBox.Show(ex.Message, "Access error");
                 }
             }
-            MessageBox.Show("Copy finished!");
+            MessageBox.Show("Copy finished!", "Success");
         }
 
         /// <summary>
@@ -320,7 +323,7 @@ namespace file_copy
                     MessageBox.Show(ex.Message, "Access error");
                 }
             }
-            MessageBox.Show("Move finished!");
+            MessageBox.Show("Move finished!", "Success");
         }
 
         private void FormMain_DragEnter(object sender, DragEventArgs e)
@@ -364,7 +367,11 @@ namespace file_copy
                     {
                         ListViewItem toFrom = new ListViewItem(toDirectry);
                         toFrom.SubItems.Add(file);
-                        lvToFrom.Items.Add(toFrom);
+                        if (!mFromToList.Contains((toDirectry, file)))
+                        {
+                            mFromToList.Add((toDirectry, file));
+                            lvToFrom.Items.Add(toFrom);
+                        }
                     }
                 }
                 lvToFrom.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
